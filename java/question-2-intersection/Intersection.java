@@ -1,28 +1,40 @@
-**
- * QUESTION 2
- * ==========
- *
- * Complete the function 'findIntersection' below to find the intersection of two arrays. An intersection would be
- * the common elements that exists within both arrays. In this case, make sure that the elements returned are
- * also unique!
- *
- */
- import java.util.Arrays;
+package com.proj;
 
- public class Intersection {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-     static int[] firstArray = new int[]{2, 2, 4, 1};
-     static int[] secondArray = new int[]{1, 2, 0, 2};
+public class Intersection {
 
-     public static int[] findIntersection(int[] arr1, int[] arr2) {
+    static int[] firstArray = new int[]{2, 2, 4, 1};
+    static int[] secondArray = new int[]{1, 2, 0, 2};
 
-         // TODO: [Your code here]
+    public static int[] findIntersection(int[] arr1, int[] arr2) {
 
-     }
+        List<Integer> intersectionList = new ArrayList<>();
+        boolean unique;
+        boolean intersectionFound;
+        for(int numFirstArray : arr1){
+            intersectionFound = false;
+            for(int numSecondArray : arr2){
+                if (numFirstArray==numSecondArray)
+                    intersectionFound = true;
+            }
+            unique = true;
+            for (Integer intersectionNum:intersectionList) {
+                if(intersectionNum.equals(numFirstArray))
+                    unique = false;
+            }
 
-     public static void main(String args[]) {
-         int[] intersection = findIntersection(firstArray, secondArray);
-         System.out.println(Arrays.toString(intersection));
-     }
+            if (intersectionFound&&unique)
+                intersectionList.add(numFirstArray);
 
- }
+        }
+        return intersectionList.stream().mapToInt(i->i).toArray();
+    }
+
+    public static void main(String args[]) {
+        int[] intersection = findIntersection(firstArray, secondArray);
+        System.out.println(Arrays.toString(intersection));
+    }
+}
